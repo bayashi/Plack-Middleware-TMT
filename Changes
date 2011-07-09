@@ -1,4 +1,7 @@
 Revision history for Perl extension Plack::Middleware::TMT
 
+0.02    9:30 2011/07/09
+        - fixed bug: template path
+
 0.01    Wed Jul  6 15:53:22 2011
         - original version
