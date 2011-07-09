@@ -8,6 +8,7 @@ use Carp qw/croak/;
 use parent 'Plack::Middleware';
 use Text::MicroTemplate::File;
 use Plack::Request;
+use Data::Dumper;
 use Plack::Util::Accessor qw/
     tmt
     include_path default_tmpl tmpl_extension
@@ -33,6 +34,14 @@ sub prepare_app {
     );
 
     $self->macro(+{}) if !$self->macro;
+    warn 'macro "d" is reserved. it works as dumper.' if $self->macro->{d};
+    $self->macro->{d} = sub {
+        local $Data::Dumper::Terse    = 1;
+        local $Data::Dumper::Indent   = 1;
+        local $Data::Dumper::Sortkeys = 1;
+        Data::Dumper::Dumper(shift);
+    };
+
     for my $name (keys %{ $self->macro }) {
         unless ($name =~ /^[a-zA-Z_][a-zA-Z0-9_]*$/) {
             croak qq{Invalid macro key name: "$name"};
@@ -120,9 +129,40 @@ support few options
 
 =head1 DESCRIPTION
 
-you can write some perl codes in template files.
+when you write tiny web app, you want to write some perl codes in template files.
 it sounds evil.
 you can use this module for test or micro app with yourself.
+
+for example index.psgi
+
+    use strict;
+    use warnings;
+    use Plack::Builder;
+
+    builder {
+        mount '/' => builder {
+            enable 'TMT',
+                include_path => '/path/to/tmpl/dir',
+                tmpl_extension => '.mt';
+        };
+    };
+
+and /path/to/tmpl/dir/index.mt like below
+
+    ? my $r = shift; # Plack::Request Obj
+
+    <pre>
+        <?= d($r) ?>
+    </pre>
+
+`d` is reserved macro. it works as dumper function.
+
+then you can plackup
+
+    $ plackup index.psgi
+
+finally, you can brows http://localhost:5000/
+
 
 =head1 REPOSITORY
 

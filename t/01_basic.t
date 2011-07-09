@@ -123,6 +123,27 @@ use Plack::Test;
 }
 
 {
+    note 'macro dumper';
+    my $app = builder {
+        enable 'TMT',
+            include_path => 'tmpl';
+    };
+    my $cli = sub {
+            my $cb = shift;
+            my $res = $cb->(GET '/macro_dumper');
+            is $res->code, 200;
+            is $res->content_type, 'text/html';
+            is $res->content, <<"_EXPECT_";
+{
+  &#39;bar&#39; =&gt; 456,
+  &#39;foo&#39; =&gt; 123
+}
+_EXPECT_
+    };
+    test_psgi $app, $cli;
+}
+
+{
     note 'template not exists';
     my $app = builder {
         enable 'TMT',
