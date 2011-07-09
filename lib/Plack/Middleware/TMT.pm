@@ -2,7 +2,7 @@ package Plack::Middleware::TMT;
 use strict;
 use warnings;
 BEGIN {
-  $Plack::Middleware::TMT::VERSION = '0.02';
+  $Plack::Middleware::TMT::VERSION = '0.03';
 }
 use Carp qw/croak/;
 use parent 'Plack::Middleware';

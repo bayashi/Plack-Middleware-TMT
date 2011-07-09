@@ -1,5 +1,9 @@
 Revision history for Perl extension Plack::Middleware::TMT
 
+0.03    18:52 2011/07/09
+        - added default macro "d" which is the dumper
+        - added POD
+
 0.02    9:30 2011/07/09
         - fixed bug: template path
 
