@@ -161,7 +161,7 @@ then you can plackup
 
     $ plackup index.psgi
 
-finally, you can brows http://localhost:5000/
+finally, you can browse http://localhost:5000/
 
 
 =head1 REPOSITORY
