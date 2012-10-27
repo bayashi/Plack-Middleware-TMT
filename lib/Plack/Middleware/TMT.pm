@@ -2,7 +2,7 @@ package Plack::Middleware::TMT;
 use strict;
 use warnings;
 BEGIN {
-  $Plack::Middleware::TMT::VERSION = '0.03';
+  $Plack::Middleware::TMT::VERSION = '0.04';
 }
 use Carp qw/croak/;
 use parent 'Plack::Middleware';
@@ -162,6 +162,19 @@ then you can plackup
     $ plackup index.psgi
 
 finally, you can browse http://localhost:5000/
+
+
+=head1 METHOD
+
+=over
+
+=item call
+
+=item prepare_app
+
+=item process_template
+
+=back
 
 
 =head1 REPOSITORY

@@ -15,6 +15,7 @@ my $builder = Module::Build->new(
         'HTTP::Request::Common' => 0,
     },
     requires => {
+        'perl' => '5.8.5',
         'Plack::Middleware' => 0,
         'Plack::Request' => 0,
         'Plack::Util::Accessor' => 0,
